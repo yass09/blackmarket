@@ -11,7 +11,6 @@ const UserModel = new Schema({
   },
   password:{
     type: String,
-    unique:true,
     required:true
   },
   // username:{
@@ -65,7 +64,7 @@ const UserModel = new Schema({
   //   required: false
   // },
   _products:[{
-    type: Schema.Types.ObjectId, ref:'Products'
+    type: Schema.ObjectId, ref:'Products'
   }]
   // _reviews:[{
   //   type: Schema.Types.ObjectId, ref:'Reviews'

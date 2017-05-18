@@ -3,14 +3,18 @@
 const Users = require('../../database').users;
 
 const userController = {
-  find: (req,res) =>{
+  find: (req,res) => {
     Users.find()
-    .populate('products')
-    .then (data =>{
+    .populate('_products')
+    // .then (data =>{
+    //   res.send(data);
+    // })
+    // .catch(err =>{
+    //   res.send(err);
+    // })
+    .exec((err, data) => {
+      if (err) return handleError(err);
       res.send(data);
-    })
-    .catch(err =>{
-      res.send(err);
     })
   },
   create: (req,res) =>{

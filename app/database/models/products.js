@@ -8,7 +8,7 @@ const ProductModel = new Schema({
   //   required: true
   // },
   _userId:{
-    type: Number, ref:'Users'
+    type: Schema.Types.ObjectId, ref:'Users'
   },
   brand:{
     type: String,

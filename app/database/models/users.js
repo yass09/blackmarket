@@ -9,66 +9,45 @@ const UserModel = new Schema({
     unique: true,
     required:true
   },
-  password:{
+  hash:{
     type: String,
     required:true
   },
-  // username:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // profilePicture:{
-  //   type:String,
-  //   unique:true,
-  //   required: false
-  // },
-  // firstName:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // lastName:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // country:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // region:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // city:{
-  //   type:String,
-  //   unique:true,
-  //   required: true
-  // },
-  // postCode:{
-  //   type:String,
-  //   unique:true,
-  //   required: false
-  // },
-  // address:{
-  //   type:String,
-  //   unique:true,
-  //   required: false
-  // },
-  // phone:{
-  //   type:Number,
-  //   unique:true,
-  //   required: false
-  // },
-  _products:[{
-    type: Schema.ObjectId, ref:'Products'
-  }]
-  // _reviews:[{
-  //   type: Schema.Types.ObjectId, ref:'Reviews'
-  // }]
+  username:{
+    type:String,
+    unique:true,
+    // required: true
+  },
+  profilePicture:{
+    type:String,
+    unique:true,
+    required: false
+  },
+  firstName:{
+    type:String,
+    unique:true,
+    // required: true
+  },
+  lastName:{
+    type:String,
+    unique:true,
+    // required: true
+  },
+  country:{
+    type:String,
+    unique:true,
+    // required: true
+  },
+  city:{
+    type:String,
+    unique:true,
+    // required: true
+  },
+  token:{
+    type:String,
+    unique:true,
+    required: false
+  }
 });
 
 module.exports = UserModel;

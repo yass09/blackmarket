@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+@import "resets";
+@import "layout";
+@import "home-heading";
+@import "forms";
+
+html{
+  font-size: 62.5%;
+}
+
+.black{
+  color: black;
+}
+
+.light-grey{
+  color: #9B9B9B;
+}
+
+.dark-grey{
+  color: #4A4A4A;
+}
+
+.bg-dark-grey{
+  background-color: #4A4A4A;
+}
+
+.button{
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  margin: 0 5px;
+  color: white;
+  padding: 0 15px;
+  height: 35px;
+}

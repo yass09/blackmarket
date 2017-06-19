@@ -1,0 +1,13 @@
+.view-container{
+  width: $full;
+  min-height: $view-container-height;
+  padding: 50px;
+  @include flex-column-center;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 500px) {
+  .view-container{
+    padding: 30px;
+  }
+}

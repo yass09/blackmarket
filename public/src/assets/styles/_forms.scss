@@ -1,0 +1,27 @@
+.login-form-container{
+  min-height: 300px;
+  @include flex-column-center;
+
+}
+
+.input-container{
+  @include flex-column;
+  justify-content: flex-start;
+  margin-bottom: 30px
+}
+
+.input-label{
+  text-align: left;
+  font-size: 2rem
+}
+
+.input{
+  margin: 0;
+  border: none;
+  border-bottom: 3px solid black
+}
+
+.input-md{
+  width: 250px;
+  height: 30px
+}

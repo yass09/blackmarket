@@ -5,16 +5,12 @@ const Users = require('../../database').users;
 const userController = {
   find: (req,res) => {
     Users.find()
-    .populate('_products')
-    // .then (data =>{
-    //   res.send(data);
-    // })
-    // .catch(err =>{
-    //   res.send(err);
-    // })
-    .exec((err, data) => {
-      if (err) return handleError(err);
+    .exec()
+    .then (data =>{
       res.send(data);
+    })
+    .catch(err =>{
+      res.send(err);
     })
   },
   create: (req,res) =>{
@@ -31,6 +27,9 @@ const userController = {
     console.log('accessed the restricted area');
     req.send('access authorized');
   }
-}
+};
+
+
+
 
 module.exports = userController;

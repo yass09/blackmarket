@@ -12,7 +12,6 @@ const routes = require('./app/routes.js');
 // New Express Instance
 const app = express();
 
-
  // Allow CORS (cross origin request)
 app.use(function (req, res, next){
   res.header('Access-Control-Allow-Origin', '*');

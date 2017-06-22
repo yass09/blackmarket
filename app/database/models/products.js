@@ -6,6 +6,9 @@ const ProductModel = new Schema({
   _owner:{
     type: Schema.Types.ObjectId, ref:'Users'
   },
+  _buyer:{
+    type: Schema.Types.ObjectId, ref:'Users'
+  },
   pictures:{
     type: Array,
     // required: true
@@ -22,25 +25,17 @@ const ProductModel = new Schema({
     type: String,
     // required: true
   },
-  name:{
-    type: String,
+  productionYear:{
+    type: Number,
     // required: true
   },
   size:{
     type: Array,
     // required: true
   },
-  condition:{
-    type: String,
-    enum: ['Deadstock','Very good','Good','Average']
-  },
   price:{
     type: Number,
     // required: true
-  },
-  sold: {
-    type: Boolean,
-    default: true,
   }
 });
 

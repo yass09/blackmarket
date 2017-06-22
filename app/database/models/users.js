@@ -23,16 +23,6 @@ const UserModel = new Schema({
     unique:true,
     required: false
   },
-  firstName:{
-    type:String,
-    unique:true,
-    // required: true
-  },
-  lastName:{
-    type:String,
-    unique:true,
-    // required: true
-  },
   country:{
     type:String,
     unique:true,

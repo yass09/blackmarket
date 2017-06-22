@@ -10,10 +10,6 @@ Vue.use(mediaQueries)
 
 Vue.config.productionTip = false
 
-Vue.filter('currency', (value, currencySign) => {
-  return `${currencySign} ${value}`
-})
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

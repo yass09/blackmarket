@@ -56,7 +56,7 @@ const authController = {
       res.send('Login failed because of this error ' + err)
     })
   },
-  require_token : (req, res, next) =>{
+  require_token: (req, res, next) =>{
     const token = req.query.token;
     if (!token) {
       res.send('Authorization required');

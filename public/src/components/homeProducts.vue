@@ -6,7 +6,7 @@
         <img :src="product.thumbnail" alt="" class="product-thumbnail-img">
         <h2 class="product-name">{{product.brand}}</h2>
         <h2 class="product-name">{{product.name}}</h2>
-        <h1 class="product-name light-grey">{{product.price | currency ('€')}}</h1>
+        <h1 class="product-name light-grey">{{product.price | currency('€') }}</h1>
       </div>
     </div>
     <button class="button bg-dark-grey">Voir Plus</button>
@@ -14,6 +14,12 @@
 </template>
 <script>
 import { products } from './test-data.js'
+import Vue from 'vue'
+
+Vue.filter('currency', (value, currencySign) => {
+  // return '€ ' + value
+  return `${currencySign} ${value.toLocaleString('en-UK')}`
+})
 
 export default {
   data () {

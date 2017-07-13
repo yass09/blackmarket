@@ -6,6 +6,19 @@
   justify-content: space-around;
 }
 
+.button-container{
+  margin-top: 20px;
+  @include flex-row-wrap-center;
+  width: $full;
+  .btn-md, .btn-lg, .btn-xl{
+    margin: 10px;
+  }
+}
+
+.section-name{
+  font-size: 2.5rem;
+}
+
 @media screen and (max-width: 500px) {
   .view-container{
     padding: 30px;

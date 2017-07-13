@@ -26,7 +26,7 @@ apiRoutes.route('/users')
 // Register new user with authentication
 apiRoutes.post('/users', authController.register);
 // Login route
-apiRoutes.post('/users/login', authController.login);
+apiRoutes.post('/login', authController.login);
 
 
 // Get all products

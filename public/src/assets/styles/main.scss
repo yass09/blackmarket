@@ -2,11 +2,15 @@
 @import "mixins";
 @import "resets";
 @import "layout";
-@import "home-heading";
+@import "heading";
 @import "forms";
 
 html{
   font-size: 62.5%;
+}
+
+*{
+  outline: none;
 }
 
 .black{
@@ -32,5 +36,31 @@ html{
   margin: 0 5px;
   color: white;
   padding: 0 15px;
+}
+
+.btn-sm{
   height: 35px;
+  font-size: 1.6em;
+}
+
+.btn-md{
+  width: 130px
+}
+
+.btn-lg{
+  width: 200px;
+}
+
+.btn-xl{
+  width: 230px;
+}
+
+.btn-md,.btn-lg, .btn-xl{
+  font-size: 2rem;
+  padding: 10px 20px 10px 20px;
+  height: auto;
+}
+
+.bold{
+  font-weight: bolder;
 }

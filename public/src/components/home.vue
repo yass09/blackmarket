@@ -1,8 +1,8 @@
 <template>
-  <div class="home view-container">
+  <main class="home view-container">
     <home-heading></home-heading>
     <home-products></home-products>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -23,7 +23,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss'>
 
 </style>

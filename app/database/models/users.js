@@ -16,27 +16,18 @@ const UserModel = new Schema({
   username:{
     type:String,
     unique:true,
-    // required: true
+    required: true
   },
   profilePicture:{
-    type:String,
-    unique:true,
-    required: false
+    type:String
   },
   country:{
     type:String,
-    unique:true,
-    // required: true
+    required: true
   },
   city:{
     type:String,
-    unique:true,
-    // required: true
-  },
-  token:{
-    type:String,
-    unique:true,
-    required: false
+    required: true
   }
 });
 

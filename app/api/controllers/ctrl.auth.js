@@ -28,38 +28,56 @@ const formatPassword = (user) => {
   const salt = bcrypt.genSaltSync(10);
   return {
     mail: user.mail,
-    hash: bcrypt.hashSync(user.mail + user.password, salt)
+    hash: bcrypt.hashSync(user.mail + ' ' + user.password, salt),
+    username: user.username,
+    country: user.country,
+    city: user.city
   }
 };
 
 const authController = {
   register: (req, res) => {
+    console.log(formatPassword(req.body))
     const newUser = new User(formatPassword(req.body));
     newUser.save()
     .then (user => {
-      const token = generate_token(user[0]);
-      res.send(token)
+      console.log('THIS IS USER ::::', user);
+      const token = generate_token(user);
+      const userData = {
+        user: user[0],
+        token: token
+      }
+      res.json(userData)
     })
     .catch(err => {
-      res.send('Registration operation failed because' + err)
+      console.log('THIS IS ERROR ::::', err);
+      res.send('Registration failed ' + err)
     })
   },
   login: (req, res) => {
+    console.log(req.body);
     User.find({mail: req.body.mail})
     .then(user =>{
       if (user.length > 0 && bcrypt.compareSync(req.body.mail + req.body.password, user[0].hash)){
+        console.log(user[0]);
         const token = generate_token(user[0]);
-        res.send(token);
+        const userData = {
+          username: user[0].username,
+          token: token
+        }
+        res.json(userData);
+      } else {
+        res.send('failed')
       }
     })
     .catch(err =>{
-      res.send('Login failed because of this error ' + err)
+      res.send('Login failed ' + err)
     })
   },
   require_token: (req, res, next) =>{
-    const token = req.query.token;
+    const token = req.body.token;
     if (!token) {
-      res.send('Authorization required');
+      res.status(401).send('Authorization required');
     } else {
       jwt.verify(token, global.config.APP_SECRET, (err, decoded) => {
         if (err || decoded.exp < moment().unix()) res.send('Token Expired');

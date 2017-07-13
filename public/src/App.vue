@@ -8,8 +8,14 @@
         </div>
       </a>
       <div v-if="$resize && $mq.above(768)" class="nav-items-container nav-items-lg">
-        <a href="/sell"><button class="nav-button button bg-dark-grey">Vendre</button></a>
-        <a href="/login"><button class="nav-button button nav-login">Connexion</button></a>
+        <a href="/sell"><button class="nav-button button btn-sm bg-dark-grey">Vendre</button></a>
+        <a href="/profile" v-if="!!isLoggedIn">
+          <div class="log-status-container">
+            <div class="log-status-img"></div>
+            <p class="log-status-name">{{ username | titlecase }}</p>
+          </div>
+        </a>
+        <a href="/login" v-else><button class="nav-button button btn-sm nav-login">Connexion</button></a>
       </div>
       <div v-else class="nav-items-container nav-items-sm">
         <div class="nav-menu-icon-container" @click='menuOpen = !menuOpen' v-bind:class='{ open : menuOpen }'>
@@ -38,16 +44,30 @@
     </footer>
   </div>
 </template>
-
 <script>
+// import axios from 'axios'
+import Vue from 'vue'
+
+Vue.filter('titlecase', (value) => {
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase()
+})
+
 export default {
   name: 'app',
   data: () => {
     return {
-      menuOpen: false
+      menuOpen: false,
+      username: ''
     }
   },
   methods: {
+
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
+    }
   }
 }
 </script>
@@ -76,11 +96,8 @@ export default {
 }
 
 .nav-items-container{
+  @include flex-row-center;
   align-items: center;
-}
-
-.nav-items-left{
-  display: flex;
 }
 
 // Content
@@ -99,12 +116,27 @@ export default {
 
 .nav-items-lg{
   .button{
-    height: 35px;
-    font-size: 1.6em;
     &:nth-of-type(2){
       background-color: #9B9B9B
     }
   }
+}
+
+.log-status-container{
+  @include flex-row-center;
+}
+
+.log-status-img{
+  height: 4.3vh;
+  width: 4.3vh;
+  margin: 0 10px;
+  border-radius: 50%;
+  border: 3px solid $lightgrey;
+  background: url('./assets/img/blackmarket-logo.svg') no-repeat center / 75% 100%;
+}
+
+.log-status-name{
+  font-size: 1.8rem
 }
 
 // Menu icon animation

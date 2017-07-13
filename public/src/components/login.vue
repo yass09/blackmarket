@@ -1,35 +1,57 @@
 <template lang="html">
-  <div class="login view-container">
-    <div class="global-form-container">
-      <div class="home-logo-container">
-        <img src="../assets/img/blackmarket-logo.svg" alt="" class="home-logo">
-        <h1 class="home-logo-branding">Connexion</h1>
+  <main class="login view-container">
+    <section class="global-form-container">
+      <div class="header-container">
+        <img src="../assets/img/blackmarket-logo.svg" alt="" class="header-img">
+        <h1 class="header-name">Connexion</h1>
       </div>
-      <form action="" class="login-form-container">
+      <form action="" class="login-signup-form-container" @submit.prevent>
         <div class="input-container">
           <label for="" class="input-label">E-mail</label>
-          <input type="email" class="input input-md">
+          <input type="email" class="input input-md" v-model='loginForm.mail'>
         </div>
         <div class="input-container">
           <label for="" class="input-label">Mot de passe</label>
-          <input type="password" class="input input-md" minlength='8'>
+          <input type="password" class="input input-md" minlength='8' v-model='loginForm.password'>
         </div>
-        <button type="submit" class="button bg-dark-grey">Connexion</button>
+        <button type="submit" class="button btn-lg bg-dark-grey" @click="logIn">Connexion</button>
+        <p class="caption">Pas de compte? <a href="/signup" class="caption-link"><strong>Inscrivez-vous ici</strong></a></p>
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
-// import axios
+// import axios from 'axios'
 
 export default {
   data: () => {
     return {
       loginForm: {
-        email: '',
+        mail: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    logIn () {
+      this.$store.dispatch('login', this.loginForm).then(() => {
+        this.$router.push('/')
+      })
+      // axios.post('http://localhost:5000/api/login', this.loginForm)
+      // .then(response => {
+      //   console.log(response.data)
+      //   if (response.data.token) {
+      //     console.log(response.data)
+      //     localStorage.setItem('token', response.data.token)
+      //     this.user = response.data
+      //     console.log(this.user)
+      //     // this.$router.go(-1)
+      //   }
+      // })
+      // .catch(e => {
+      //   console.log('ERROR' + e)
+      // })
     }
   }
 }
@@ -39,10 +61,8 @@ export default {
   .login{
     .button{
       margin-top: 50px;
-      font-size: 2rem;
-      width: 200px;
-      padding: 10px 30px 10px 30px;
-      height: auto;
     }
   }
+
+
 </style>

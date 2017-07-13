@@ -24,7 +24,12 @@ app.use(morgan('dev')); 
 
 // Use imported routes
 app.use(routes);
+app.use(express.static('./public/dist'));
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname,'public/dist/index.html'))
+})
 // Launch Server
 app.listen(global.config.port, err => {
   console.log('Server running on ' + global.config.port);

@@ -1,23 +1,22 @@
 <template>
-  <div class="products-component-container">
+  <section class="products-component-container">
     <h1 class="section-name">Les dernières paires</h1>
     <div class="product-group-container">
       <div class="product-container" v-for='product in products'>
         <img :src="product.thumbnail" alt="" class="product-thumbnail-img">
-        <h2 class="product-name">{{product.brand}}</h2>
-        <h2 class="product-name">{{product.name}}</h2>
-        <h1 class="product-name light-grey">{{product.price | currency('€') }}</h1>
+        <p class="product-name bold">{{product.brand}}</p>
+        <p class="product-name">{{product.name}}</p>
+        <p class="product-name light-grey bold">{{product.price | currency('€') }}</p>
       </div>
     </div>
-    <button class="button bg-dark-grey">Voir Plus</button>
-  </div>
+    <button class="button btn-md bg-dark-grey">Voir Plus</button>
+  </section>
 </template>
 <script>
 import { products } from './test-data.js'
 import Vue from 'vue'
 
 Vue.filter('currency', (value, currencySign) => {
-  // return '€ ' + value
   return `${currencySign} ${value.toLocaleString('en-UK')}`
 })
 
@@ -55,8 +54,11 @@ export default {
   @include flex-row-wrap-center;
 }
 
-.product-name, .product-price{
+.product-name{
   margin-bottom: 5px;
+}
+.product-name{
+  font-size: 1.5rem;
 }
 
 </style>

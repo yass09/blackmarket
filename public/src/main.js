@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import {MediaQueries} from 'vue-media-queries'
 import router from './router'
+import {store} from './store/store'
 
 const mediaQueries = new MediaQueries()
 Vue.use(mediaQueries)
@@ -14,6 +15,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
   mediaQueries: mediaQueries

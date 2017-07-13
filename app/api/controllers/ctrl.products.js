@@ -15,21 +15,20 @@ const productsController = {
     })
   },
   create: (req,res) =>{
-    console.log(req._userMail);
     Users
       .find({ mail: req._userMail })
       .then(user => {
         const userId = user[0]._id;
         req.body._owner = userId;
-        console.log(user, req.body,'hahshdjashdjsahjfsdfdsfds');
+        console.log(user, req.body);
         const newProduct = new Products(req.body);
         // newProduct._owner = userId;
         newProduct.save()
         .then(data =>{
-          res.send('product successfully created' + data);
+          res.send('success' + data);
         })
         .catch(err =>{
-          res.send('err' + err + 'in creating product');
+          res.send(err);
         })
       })
   }

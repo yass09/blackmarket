@@ -17,10 +17,10 @@ const userController = {
     const newUser = new Users(req.body);
     newUser.save()
     .then (data =>{
-      res.send('user successfully created' + data);
+      res.send('user successfully created', data);
     })
     .catch (err =>{
-      res.send('err' + err + 'in creating user');
+      res.send('err in creating user', err);
     })
   },
   restricted: (req,res) =>{

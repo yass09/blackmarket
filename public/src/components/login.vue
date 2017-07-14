@@ -14,7 +14,7 @@
           <label for="" class="input-label">Mot de passe</label>
           <input type="password" class="input input-md" minlength='8' v-model='loginForm.password'>
         </div>
-        <button type="submit" class="button btn-lg bg-dark-grey" @click="logIn">Connexion</button>
+        <button type="submit" class="button btn-lg bg-dark-grey" @click="login">Connexion</button>
         <p class="caption">Pas de compte? <a href="/signup" class="caption-link"><strong>Inscrivez-vous ici</strong></a></p>
       </form>
     </section>
@@ -34,9 +34,11 @@ export default {
     }
   },
   methods: {
-    logIn () {
-      this.$store.dispatch('login', this.loginForm).then(() => {
+    login () {
+      this.$store.dispatch('login', this.loginForm).then(response => {
         this.$router.push('/')
+      }).catch(e => {
+        console.log(e)
       })
       // axios.post('http://localhost:5000/api/login', this.loginForm)
       // .then(response => {
@@ -46,11 +48,12 @@ export default {
       //     localStorage.setItem('token', response.data.token)
       //     this.user = response.data
       //     console.log(this.user)
-      //     // this.$router.go(-1)
+      //     this.$store.isLoggedIn = true
+      //     this.$router.go(-1)
       //   }
       // })
       // .catch(e => {
-      //   console.log('ERROR' + e)
+      //   console.log('ERROR', e)
       // })
     }
   }

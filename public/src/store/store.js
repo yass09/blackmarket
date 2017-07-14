@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    isLoggedIn: !!localStorage.getItem('token')
+    isLoggedIn: !!localStorage.getItem('token'),
+    currentUser: null
   },
   getters,
   mutations,

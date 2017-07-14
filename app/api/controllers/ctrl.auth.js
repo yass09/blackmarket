@@ -51,27 +51,32 @@ const authController = {
     })
     .catch(err => {
       console.log('THIS IS ERROR ::::', err);
-      res.send('Registration failed ' + err)
+      res.send('Registration failed :::', err)
     })
   },
   login: (req, res) => {
-    console.log(req.body);
+    console.log('You entered this ::::', req.body);
     User.find({mail: req.body.mail})
-    .then(user =>{
-      if (user.length > 0 && bcrypt.compareSync(req.body.mail + req.body.password, user[0].hash)){
-        console.log(user[0]);
+    .then(user => {
+      console.log(user);
+      if (user.length > 0 && bcrypt.compareSync(req.body.mail + ' ' + req.body.password, user[0].hash)) {
+        console.log('ca marche');
         const token = generate_token(user[0]);
         const userData = {
+          userId: user[0]._id,
           username: user[0].username,
+          mail: user[0].mail,
+          profilePicture: user[0].profilePicture,
+          country: user[0].country,
+          city: user[0].city,
           token: token
-        }
+        };
         res.json(userData);
-      } else {
-        res.send('failed')
+        console.log(userData);
       }
     })
     .catch(err =>{
-      res.send('Login failed ' + err)
+      res.send(err)
     })
   },
   require_token: (req, res, next) =>{

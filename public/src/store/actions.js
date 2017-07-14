@@ -1,22 +1,21 @@
-import {LOGIN, LOGIN_SUCCESS, LOGOUT} from './constants'
+import {LOGIN_SUCCESS, LOGOUT, STORE_USER} from './constants'
 
 import axios from 'axios'
 
 export default {
   login ({ commit }, creds) {
-    commit(LOGIN)
-    return new Promise(resolve => {
+    // commit(LOGIN)
+    return new Promise((resolve, reject) => {
       axios.post('http://localhost:5000/api/login', creds)
       .then(response => {
         commit(LOGIN_SUCCESS)
-        console.log(response.data)
-        if (response !== 'failed') {
-          localStorage.setItem('token', response.data.token)
-          console.log(response.data)
-          this.user = response.data
-        }
+        commit(STORE_USER)
+        localStorage.setItem('token', response.data.token)
+        resolve(response)
+      }, e => {
+        console.log(e)
+        reject(e)
       })
-      resolve()
     })
   },
   logout ({commit}) {

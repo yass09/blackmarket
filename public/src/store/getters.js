@@ -1,7 +1,10 @@
 // import {LOGIN, LOGIN_SUCCESS, LOGOUT} from './constants'
 
 export default {
-  isLoggedIn: state => {
+  logStatus: state => {
     return state.isLoggedIn
+  },
+  getUser: state => {
+    return state.currentUser
   }
 }

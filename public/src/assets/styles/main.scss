@@ -4,6 +4,7 @@
 @import "layout";
 @import "heading";
 @import "forms";
+@import "product-display";
 
 html{
   font-size: 62.5%;
@@ -27,6 +28,10 @@ html{
 
 .bg-dark-grey{
   background-color: #4A4A4A;
+}
+
+.bg-light-grey{
+  background-color: #9B9B9B;
 }
 
 .button{

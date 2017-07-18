@@ -1,5 +1,6 @@
 <template lang="html">
   <main class="login view-container">
+    <back-button></back-button>
     <section class="global-form-container">
       <div class="header-container">
         <img src="../assets/img/blackmarket-logo.svg" alt="" class="header-img">
@@ -22,7 +23,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+import BackButton from './back-button.vue'
 
 export default {
   data: () => {
@@ -33,28 +35,24 @@ export default {
       }
     }
   },
+  components: {
+    BackButton
+  },
   methods: {
     login () {
       this.$store.dispatch('login', this.loginForm).then(response => {
-        this.$router.push('/')
+        if (localStorage.getItem('token')) {
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+        }
       }).catch(e => {
         console.log(e)
       })
-      // axios.post('http://localhost:5000/api/login', this.loginForm)
-      // .then(response => {
-      //   console.log(response.data)
-      //   if (response.data.token) {
-      //     console.log(response.data)
-      //     localStorage.setItem('token', response.data.token)
-      //     this.user = response.data
-      //     console.log(this.user)
-      //     this.$store.isLoggedIn = true
-      //     this.$router.go(-1)
-      //   }
-      // })
-      // .catch(e => {
-      //   console.log('ERROR', e)
-      // })
+      this.$router.push('/')
+    }
+  },
+  created () {
+    if (this.$store.getters.logStatus) {
+      this.$router.replace('/')
     }
   }
 }

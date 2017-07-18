@@ -16,6 +16,30 @@
   font-size: 3.5vh;
 }
 
+.header-subinfo{
+
+}
+
+.user-info-group-container{
+  @include flex-row-wrap-around;
+  margin-top: 20px;
+  // width: 70%;
+}
+.user-info-container{
+  @include flex-column-center;
+  width: 200px;
+}
+
+.header-data-name{
+  font-size: 2rem;
+  margin-bottom: 10px
+}
+
+.header-info{
+  color: $darkgrey;
+  font-size: 1.5rem
+}
+
 .home-title{
   font-size: 5vmin;
   margin-bottom: 8px;

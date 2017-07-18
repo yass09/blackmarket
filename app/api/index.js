@@ -14,26 +14,31 @@ const userController = require('./controllers/ctrl.users');
 const productsController = require('./controllers/ctrl.products');
 const authController = require('./controllers/ctrl.auth');
 
-// Test route homepage
-apiRoutes.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname, '../../public/dist', 'index.html'));
-});
-
 // Users routes
-// get all Users
-apiRoutes.route('/users')
-.get(userController.find);
-// Register new user with authentication
-apiRoutes.post('/users', authController.register);
+
 // Login route
 apiRoutes.post('/login', authController.login);
 
+// get all Users
+apiRoutes.route('/users')
+.get(userController.find)
+// Register new user with authentication
+.post(authController.register);
 
-// Get all products
-apiRoutes.get('/products', productsController.find);
+apiRoutes.route('/users/:id')
+.get(userController.findUser)
+.put(userController.updateUser)
+
+
+apiRoutes.
+route('/products')
+.get(productsController.find)
 // Create new product
-apiRoutes.post('/products', authController.require_token, productsController.create);
+.post(authController.require_token, productsController.create)
 
-
+apiRoutes.route('/products/:id')
+.get(productsController.findProduct)
+.put(productsController.updateProduct)
+.delete(productsController.removeProduct)
 
 module.exports = apiRoutes;

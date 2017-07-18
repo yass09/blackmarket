@@ -7,23 +7,23 @@
           <h1 v-if="$resize && $mq.above(768)" class="nav-branding black">Blackmarket</h1>
         </div>
       </a>
-      <div v-if="$resize && $mq.above(768)" class="nav-items-container nav-items-lg">
-        <a href="/sell"><button class="nav-button button btn-sm bg-dark-grey">Vendre</button></a>
+      <div class="nav-items-container nav-items-lg">
+        <a href="/sell" v-if="$resize && $mq.above(768)"><button class="nav-button button btn-sm bg-dark-grey">Vendre</button></a>
         <a href="/profile" v-if="!!isLoggedIn">
           <div class="log-status-container">
             <div class="log-status-img"></div>
-            <p class="log-status-name">{{ username | titlecase }}</p>
+            <p class="log-status-name" v-if="$resize && $mq.above(768)">{{ username | titlecase }}</p>
           </div>
         </a>
-        <a href="/login" v-else><button class="nav-button button btn-sm nav-login">Connexion</button></a>
+        <a href="/login" v-else><button class="nav-button button btn-sm nav-login bg-light-grey">Connexion</button></a>
       </div>
-      <div v-else class="nav-items-container nav-items-sm">
+      <!-- <div v-else class="nav-items-container nav-items-sm">
         <div class="nav-menu-icon-container" @click='menuOpen = !menuOpen' v-bind:class='{ open : menuOpen }'>
           <div class="nav-menu-icon-bar1"></div>
           <div class="nav-menu-icon-bar2"></div>
           <div class="nav-menu-icon-bar3"></div>
         </div>
-      </div>
+      </div> -->
     </nav>
     <router-view></router-view>
     <footer class="footer-global-container">
@@ -45,29 +45,38 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
-import Vue from 'vue'
-
-Vue.filter('titlecase', (value) => {
-  value = value.toString()
-  return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase()
-})
-
 export default {
   name: 'app',
   data: () => {
     return {
       menuOpen: false,
-      username: ''
+      username: localStorage.getItem('username')
     }
   },
   methods: {
-
   },
   computed: {
     isLoggedIn () {
-      return this.$store.getters.isLoggedIn
+      return this.$store.getters.logStatus
+    },
+    getUser () {
+      return this.$store.getters.currentUser
     }
+    // ,
+    // setUsername () {
+    //   if (this.isLoggedIn()) {
+    //     this.username = localStorage.getItem('username')
+    //   }
+    // }
+    // ,
+    // usernameSetter: {
+    //   get () {
+    //     return this.$store.getters.currentUsername
+    //   },
+    //   set () {
+    //     this.username = this.getUsername()
+    //   }
+    // }
   }
 }
 </script>

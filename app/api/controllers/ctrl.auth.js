@@ -44,7 +44,12 @@ const authController = {
       console.log('THIS IS USER ::::', user);
       const token = generate_token(user);
       const userData = {
-        user: user[0],
+        id: user.id,
+        username: user.username,
+        mail: user.mail,
+        country: user.country,
+        city: user.city,
+        dateCreated: user.dateCreated,
         token: token
       }
       res.json(userData)
@@ -60,15 +65,10 @@ const authController = {
     .then(user => {
       console.log(user);
       if (user.length > 0 && bcrypt.compareSync(req.body.mail + ' ' + req.body.password, user[0].hash)) {
-        console.log('ca marche');
         const token = generate_token(user[0]);
         const userData = {
           userId: user[0]._id,
           username: user[0].username,
-          mail: user[0].mail,
-          profilePicture: user[0].profilePicture,
-          country: user[0].country,
-          city: user[0].city,
           token: token
         };
         res.json(userData);

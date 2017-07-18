@@ -23,9 +23,46 @@ const userController = {
       res.send('err in creating user', err);
     })
   },
-  restricted: (req,res) =>{
-    console.log('accessed the restricted area');
-    req.send('access authorized');
+  findUser: (req,res) => {
+    Users.findById({_id:req.params.id})
+    .then (user => {
+      const userData = {
+        id: user.id,
+        username: user.username,
+        mail: user.mail,
+        country: user.country,
+        city: user.city,
+        dateCreated: user.dateCreated,
+        sales: user.sales
+      }
+      console.log(userData)
+      res.json(userData)
+    })
+    .catch ( err => {
+      res.send('COULD NOT GET USER ', err)
+    })
+  },
+  updateUser: (req,res) => {
+    Users.findById({_id:req.params.id}, (err,user) => {
+      if (err) {
+        res.send(err);
+        // res.status(statusCode >= 100 && statusCode < 600 ? err.code : 500);
+      }
+      user.mail = req.body.mail,
+      // user.hash,
+      user.username = req.body.username,
+      user.profilePicture = req.body.profilePicture,
+      user.country = req.body.country,
+      user.city = req.body.city,
+      user.sales = req.body.sales
+      user.save((err)=>{
+        if (err) {
+          res.send(err).status(statusCode >= 100 && statusCode < 600 ? err.code : 500);
+        }
+        console.log(user);
+        res.send(user);
+      });
+    });
   }
 };
 

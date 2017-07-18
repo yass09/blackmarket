@@ -19,23 +19,23 @@ const ProductModel = new Schema({
   },
   model:{
     type: String,
-    // required: true
+    required: true
   },
   colorway:{
     type: String,
-    // required: true
+    required: true
   },
   productionYear:{
     type: Number,
-    // required: true
+    required: true
   },
   size:{
     type: Array,
-    // required: true
+    required: true
   },
   price:{
     type: Number,
-    // required: true
+    required: true
   }
 });
 

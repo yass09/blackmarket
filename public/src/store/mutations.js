@@ -9,7 +9,7 @@ export default {
     // state.pending = false
   },
   [STORE_USER] (state, response) {
-    state.currentUser = response
+    state.currentUser = response.data
   },
   [LOGOUT] (state) {
     state.isLoggedIn = false

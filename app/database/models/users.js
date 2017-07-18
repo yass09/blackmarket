@@ -28,6 +28,14 @@ const UserModel = new Schema({
   city:{
     type:String,
     required: true
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  },
+  sales: {
+    type: Number,
+    default: 0
   }
 });
 

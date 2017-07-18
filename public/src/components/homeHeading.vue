@@ -8,7 +8,7 @@
       <h1 class="home-title">Trouvez les meilleures sneakers</h1>
       <div class="home-subtitle-container">
         <h3 class="home-subtitle light-grey">et vendez les vôtres</h3>
-        <button class="home-subtitle-cta btn-md bg-dark-grey button">Vendre</button>
+        <a href="/sell"><button class="home-subtitle-cta btn-md bg-dark-grey button">Vendre</button></a>
       </div>
     </div>
   </section>

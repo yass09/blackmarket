@@ -3,7 +3,7 @@
     <back-button></back-button>
     <header class="header-container">
       <img src="../assets/img/blackmarket-logo.svg" alt="" class="header-img">
-      <h1 class="header-name">Vendre</h1>
+      <h1 class="header-name">Modifier Votre Paire</h1>
     </header>
     <section class="sell-content">
       <form action="" enctype="multipart/form-data" class="sell-form common-form-container" @submit.prevent>
@@ -21,18 +21,6 @@
               <img v-if='currentImage' @click='removeImage' class="sell-photo-icon" src="../assets/img/garbage.svg" alt="">
             </div>
           </div>
-          <!-- <div class="sell-photo-container">
-            <div v-if='!currentImage' class="sell-photo-upload-container">
-              <p class="sell-photo-add">+</p>
-              <input class="input input-md" accept="image/*" type="file" name="" value="" @change="onFileChange">
-            </div>
-            <div v-else class="sell-photo-upload-container">
-              <img class='sell-uploaded-img' :src='currentImage' alt="">
-            </div>
-            <div class="sell-photo-controls">
-              <img v-if='currentImage' @click='removeImage' class="sell-photo-icon" src="../assets/img/garbage.svg" alt="">
-            </div>
-          </div>
           <div class="sell-photo-container">
             <div v-if='!currentImage' class="sell-photo-upload-container">
               <p class="sell-photo-add">+</p>
@@ -56,7 +44,19 @@
             <div class="sell-photo-controls">
               <img v-if='currentImage' @click='removeImage' class="sell-photo-icon" src="../assets/img/garbage.svg" alt="">
             </div>
-          </div> -->
+          </div>
+          <div class="sell-photo-container">
+            <div v-if='!currentImage' class="sell-photo-upload-container">
+              <p class="sell-photo-add">+</p>
+              <input class="input input-md" accept="image/*" type="file" name="" value="" @change="onFileChange">
+            </div>
+            <div v-else class="sell-photo-upload-container">
+              <img class='sell-uploaded-img' :src='currentImage' alt="">
+            </div>
+            <div class="sell-photo-controls">
+              <img v-if='currentImage' @click='removeImage' class="sell-photo-icon" src="../assets/img/garbage.svg" alt="">
+            </div>
+          </div>
         </div>
         <div class="input-container">
           <label for="" class="input-label">Marque</label>
@@ -95,7 +95,11 @@
           <label for="" class="input-label">Prix</label>
           <input type="text" class="input input-md" v-model="productData.price">
         </div>
-        <button @click="postProduct" class="button btn-lg bg-dark-grey">Vendre</button>
+        <div class="button-container">
+          <button @click="removeProduct" class="button btn-lg bg-light-grey">Supprimer</button>
+          <button @click="updateProduct" class="button btn-lg bg-dark-grey">Vendre</button>
+
+        </div>
         <p class="general-error" v-if="isListed=='failed'">Impossible de mettre en vente votre paire</p>
       </form>
     </section>
@@ -109,16 +113,7 @@ import BackButton from './back-button.vue'
 export default {
   data: () => {
     return {
-      productData: {
-        brand: '',
-        model: '',
-        colorway: '',
-        productionYear: '',
-        size: '',
-        price: '',
-        token: localStorage.getItem('token'),
-        pictures: []
-      },
+      productData: {},
       isListed: null,
       currentImage: ''
     }
@@ -144,11 +139,30 @@ export default {
     removeImage: function (e) {
       this.currentImage = ''
     },
-    postProduct () {
-      axios.post('http://localhost:5000/api/products', this.productData)
+    getProduct () {
+      axios.get('http://localhost:5000/api/products/' + this.$route.params.product_id)
+      .then(response => {
+        console.log('RECEIVED THIS', response.data)
+        this.productData = response.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    updateProduct () {
+      axios.put('http://localhost:5000/api/products/' + this.$route.params.product_id, this.productData)
       .then(response => {
         console.log(response.data)
         this.$router.push('/success-sale')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    removeProduct () {
+      axios.delete('http://localhost:5000/api/products/' + this.$route.params.product_id)
+      .then(response => {
+        console.log(response.data)
       })
       .catch(err => {
         console.log(err)
@@ -159,6 +173,9 @@ export default {
     if (!this.$store.getters.logStatus) {
       this.$router.replace('/login')
     }
+  },
+  mounted () {
+    this.getProduct()
   }
 }
 </script>

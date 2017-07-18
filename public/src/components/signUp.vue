@@ -1,5 +1,6 @@
 <template>
   <main class="sign-up view-container">
+    <back-button></back-button>
     <div class="header-container">
       <img src="../assets/img/blackmarket-logo.svg" alt="" class="header-img">
       <h1 class="header-name">Inscription</h1>
@@ -33,9 +34,10 @@
     </form>
   </main>
 </template>
-
 <script>
 import axios from 'axios'
+import BackButton from './back-button.vue'
+
 export default {
   data: () => {
     return {
@@ -50,18 +52,23 @@ export default {
       }
     }
   },
+  components: {
+    BackButton
+  },
   methods: {
     signupUser () {
-      console.log(this.userData)
+      console.log('I SEND THIS', this.userData)
       if (this.userData.password === this.confirmPassword) {
         this.passwordCheck = true
         axios.post('http://localhost:5000/api/users', this.userData)
         .then(response => {
-          console.log(response.data)
+          console.log('THIS IS RESPONSE', response.data)
           if (response.data.token) {
             localStorage.setItem('token', response.data.token)
+            localStorage.setItem('id', response.data.id)
             localStorage.setItem('username', response.data.username)
-            this.$router.push('profile')
+            this.$store.commit('LOGIN_SUCCESS')
+            this.$router.push('/profile')
           }
         })
         .catch(e => {
@@ -70,6 +77,11 @@ export default {
       } else {
         this.passwordCheck = false
       }
+    }
+  },
+  created () {
+    if (this.$store.getters.logStatus) {
+      this.$router.replace('/')
     }
   }
 }

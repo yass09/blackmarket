@@ -9,10 +9,19 @@
 .button-container{
   margin-top: 20px;
   @include flex-row-wrap-center;
-  width: $full;
+  // width: $full;
   .btn-md, .btn-lg, .btn-xl{
     margin: 10px;
   }
+}
+.if-container{
+  width: $full;
+  @include flex-column-center;
+}
+
+.section-lg{
+  @include flex-row-wrap-around;
+  width: $full;
 }
 
 .section-name{
